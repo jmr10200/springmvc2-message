@@ -56,8 +56,11 @@ public class ItemServiceApplication {
 
 	/**
 	 * 스프링은 기본적인 메시지 관리 기능을 제공한다.
-	 * 스프링부트는 application.properties 파일에 설정하면된다.
+	 *
+	 * 스프링부트는 아래의 Bean 추가 대신
+	 * application.properties 파일에 설정하면된다.
 	 */
+	/**
 	@Bean
 	public MessageSource messageSource() {
 		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
@@ -72,4 +75,19 @@ public class ItemServiceApplication {
 		messageSource.setDefaultEncoding("utf-8");
 		return messageSource;
 	}
+	 */
+
+	// 스프링의 국제화 메시지 선택
+	// MessageSource 테스트를 보면 메시지 기능은 Locale 정보를 알아야 언어를 선택할 수 있다.
+	// 결국 스프링도 Locale 정보를 알아야 언어를 선택할 수 있는데,
+	// 스프링은 언어 선택시 기본으로 Accept-Language 헤더의 값을 사용한다.
+
+	// LocaleResolver
+	// 스프링은 Locale 선택 방식을 변경할 수 있도록 LocalResolver 라는 인터페이스를 제공한다.
+	// 스프링부트는 기본으로 Accept-Language 를 활용하는 AcceptHeaderLocaleResolver 를 사용한다.
+
+	// LocaleResolver 변경
+	// 만약 Locale 선택 방식을 변경하려면 LocaleResolver 의 구현체를 변경해서
+	// 쿠키나 세션 기반의 Locale 선택 기능을 사용할 수 있다.
+	// 고객이 직접 Locale 을 선택하도록 하는 것이 그것이다.
 }
